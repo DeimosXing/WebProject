@@ -1,6 +1,5 @@
 package com.cyan.dao.Impl;
 
-import com.cyan.dao.IAdminDao;
 import com.cyan.dao.SSIAdminDao;
 import com.cyan.entity.*;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
@@ -20,99 +19,161 @@ import java.util.Map;
 @Repository
 public class SSAdminDao extends SqlSessionDaoSupport implements SSIAdminDao {
 
-    private static final String SQL_NAMESPACE = "SSAdmin";
-
+    private static final String SQL_NAMESPACE = "Admin";
+/**
+ * admin
+ **/
     @Override
     public Admin selectById(String id) {
         Map<String, String> map = new HashMap<String, String>();
         map.put("id", id);
         return this.getSqlSession().selectOne(SQL_NAMESPACE + ".selectById", map);
     }
-
+/**
+ * team
+ * */
     @Override
-    public List<SSTeam> selectAllTeams() {
-        return this.getSqlSession().selectList(SQL_NAMESPACE + ".selectAllTeams");
+    public List<SSTeam> selectAllSSTeams() {
+        return this.getSqlSession().selectList(SQL_NAMESPACE + ".selectAllSSTeams");
     }
 
     @Override
-    public List<Course> selectAllCourses() {
-        return this.getSqlSession().selectList(SQL_NAMESPACE + ".selectAllCourses");
+    public void updateSSTeam(SSTeam ssteam) {
+        Map<String, SSTeam> map = new HashMap<String, SSTeam>();
+        map.put("s", ssteam);
+        this.getSqlSession().update(SQL_NAMESPACE + ".updateSSTeam", map);
     }
 
     @Override
-    public void updateStudent(Student student) {
-        Map<String, Student> map = new HashMap<String, Student>();
-        map.put("s", student);
-        this.getSqlSession().update(SQL_NAMESPACE + ".updateStudent", map);
-    }
-
-    @Override
-    public Student selectStuById(String id) {
+    public SSTeam selectSSTeamById(String id) {
         Map<String, String> map = new HashMap<String, String>();
         map.put("id", id);
-        return this.getSqlSession().selectOne(SQL_NAMESPACE + ".selectStuById", map);
+        return this.getSqlSession().selectOne(SQL_NAMESPACE + ".selectSSTeamById", map);
     }
 
     @Override
-    public void addStudent(Student student) {
-        this.getSqlSession().insert(SQL_NAMESPACE + ".insertStudent", student);
+    public void addSSTeam(SSTeam ssteam) {
+        this.getSqlSession().insert(SQL_NAMESPACE + ".insertSSTeam", ssteam);
     }
 
     @Override
-    public void delStudent(String id) {
+    public void delSSTeam(String id) {
         Map<String, String> map = new HashMap<String, String>();
         map.put("id", id);
-        this.getSqlSession().delete(SQL_NAMESPACE + ".delStudent", map);
+        this.getSqlSession().delete(SQL_NAMESPACE + ".delSSTeam", map);
 
     }
 
-    @Override
-    public void addCourse(Course course) {
-        this.getSqlSession().insert(SQL_NAMESPACE + ".insertClz", course);
-    }
 
+    /**
+     * project
+     * */
     @Override
-    public void delCourse(Integer id) {
-        Map<String, Integer> map = new HashMap<String, Integer>();
-        map.put("id", id);
-        this.getSqlSession().delete(SQL_NAMESPACE + ".delCourse", map);
+    public List<SSProject> selectAllSSProjects() {
+        return this.getSqlSession().selectList(SQL_NAMESPACE + ".selectAllSSProjects");
     }
-
     @Override
-    public List<StudyInfo> selectAllStudyInfo() {
-        return this.getSqlSession().selectList(SQL_NAMESPACE + ".selectAllStudyInfo");
-    }
-
-    @Override
-    public void addStudyInfo(StudyInfo studyInfo) {
-        this.getSqlSession().insert(SQL_NAMESPACE + ".insertStudyInfo", studyInfo);
-    }
-
-    @Override
-    public void delStudyInfo(Integer id) {
-        Map<String, Integer> map = new HashMap<String, Integer>();
-        map.put("id", id);
-        this.getSqlSession().delete(SQL_NAMESPACE + ".delStudyInfo", map);
-    }
-
-    @Override
-    public StudyInfo selectById(Integer id) {
-        Map<String, Integer> map = new HashMap<String, Integer>();
-        map.put("id", id);
-        return this.getSqlSession().selectOne(SQL_NAMESPACE + ".selectByStudyId", map);
-    }
-
-    @Override
-    public void delStudyInfoByCId(Integer id) {
-        Map<String, Integer> map = new HashMap<String, Integer>();
-        map.put("id", id);
-        this.getSqlSession().delete(SQL_NAMESPACE + ".delStudyInfoByCId", map);
-    }
-
-    @Override
-    public void delStudyInfoBySId(String id) {
+    public SSProject selectSSProjById(String id){
         Map<String, String> map = new HashMap<String, String>();
         map.put("id", id);
-        this.getSqlSession().delete(SQL_NAMESPACE + "delStudyInfoBySId", map);
+        return this.getSqlSession().selectOne(SQL_NAMESPACE + ".selecSSProjById", map);
+
     }
+
+    @Override
+    public void addSSProject(SSProject ssproject) {
+        this.getSqlSession().insert(SQL_NAMESPACE + ".insertClz", ssproject);
+    }
+    @Override
+    public void updateSSProject(SSProject ssproject){
+        Map<String, SSProject> map = new HashMap<String, SSProject>();
+        map.put("s", ssproject);
+        this.getSqlSession().update(SQL_NAMESPACE + ".updateSSJudge", map);
+
+    }
+    @Override
+    public void delSSProject(String id) {
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("id", id);
+        this.getSqlSession().delete(SQL_NAMESPACE + ".delSSProject", map);
+    }
+    /**
+     * judge
+     * */
+    @Override
+    public void updateSSJudge(SSJudge ssjudge){
+        Map<String, SSJudge> map = new HashMap<String, SSJudge>();
+        map.put("s", ssjudge);
+        this.getSqlSession().update(SQL_NAMESPACE + ".updateSSJudge", map);
+
+    }
+    @Override
+    public List<SSJudge> selectAllSSJudges() {
+        return this.getSqlSession().selectList(SQL_NAMESPACE + ".selectAllSSJudges");
+    }
+
+    @Override
+    public SSJudge selectSSJudgeById(String id) {
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("id", id);
+        return this.getSqlSession().selectOne(SQL_NAMESPACE + ".selecSSJudgetById", map);
+    }
+
+    @Override
+    public void addSSJudge(SSJudge ssjudge) {
+        this.getSqlSession().insert(SQL_NAMESPACE + ".insertSSJudge", ssjudge);
+    }
+
+
+    @Override
+    public void delSSJudgeById(String id) {
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("id", id);
+        this.getSqlSession().delete(SQL_NAMESPACE + ".delSSJudgeById", map);
+    }
+    
+    
+    
+    
+    
+    
+    /**
+     * athlete
+     * */
+
+    @Override
+    public void updateSSAthlete(SSAthlete ssathlete){
+        Map<String, SSAthlete> map = new HashMap<String, SSAthlete>();
+        map.put("s", ssathlete);
+        this.getSqlSession().update(SQL_NAMESPACE + ".updateSSAthlete", map);
+
+    }
+    @Override
+    public List<SSAthlete> selectAllSSAthletes() {
+        return this.getSqlSession().selectList(SQL_NAMESPACE + ".selectAllSSAthletes");
+    }
+
+    @Override
+    public SSAthlete selectSSAthleteById(String id) {
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("id", id);
+        return this.getSqlSession().selectOne(SQL_NAMESPACE + ".selecSSAthletetById", map);
+    }
+
+    @Override
+    public void addSSAthlete(SSAthlete ssathlete) {
+        this.getSqlSession().insert(SQL_NAMESPACE + ".insertSSAthlete", ssathlete);
+    }
+
+
+    @Override
+    public void delSSAthleteById(String id) {
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("id", id);
+        this.getSqlSession().delete(SQL_NAMESPACE + ".delSSAthleteById", map);
+    }
+
+
+
+
 }
